@@ -1,7 +1,8 @@
 
-FROM ubuntu:22.04
-# FROM jrei/systemd-ubuntu:22.04
+# This dockerfile is to build custom ubuntu img
 
+# base image is ubuntu 
+FROM ubuntu:22.04
 
 # Update & intall packages 
 RUN apt-get update && \
@@ -23,13 +24,11 @@ RUN apt-get update && \
     libssl-dev \
     vim \ 
     cron \
-    netcat
+    netcat \
+    htop
 
 
 
-# RUN rm -rf /etc/default/sysstat
-# COPY sysstat /etc/default/sysstat
-
-COPY send_load_avg_script.sh /
-
-COPY add_load.sh /
+# copy necessary scipts into the image
+COPY send_load_avg.sh /
+COPY put_load.sh /

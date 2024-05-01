@@ -6,8 +6,12 @@
 # if ATTACH_MODE_FLAG is null or "d" => detach mode
 # if ATTACH_MODE_FLAG is "a" => attach mode
 # rest any value of ATTACH_MODE_FLAG is invalid
+# sample usage : "./start_or_stop.sh 0" to stop container
+# sample usage : "./start_or_stop.sh 1" to start container 
 
 
+START_OR_STOP_FLAG=$1
+ATTACH_MODE_FLAG=$2
 
 stop() {
     docker-compose down
@@ -27,9 +31,6 @@ start_detach() {
     docker-compose up -d
 }
 
-
-START_OR_STOP_FLAG=$1
-ATTACH_MODE_FLAG=$2
 
 if [ -z "$START_OR_STOP_FLAG" ] ; then
     echo "Invalid value of start/stop flag"
