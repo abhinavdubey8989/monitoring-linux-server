@@ -1,0 +1,10 @@
+
+version: '3'
+
+services:
+  my_ubuntu_server:
+    image: my_ubuntu_server
+    container_name: my_ubuntu_server
+    command: tail -f /dev/null
+    # volumes:
+    #   - /var/run/docker.sock:/var/run/docker.sock:ro
