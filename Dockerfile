@@ -17,18 +17,18 @@ RUN apt-get update && \
     sysstat \
     build-essential \
     wget \
-    libpcre3 \
-    libpcre3-dev \
-    zlib1g \
-    zlib1g-dev \
-    libssl-dev \
     vim \ 
     cron \
     netcat \
-    htop
+    htop \
+    net-tools
 
 
 
-# copy necessary scipts into the image
-COPY send_load_avg.sh /
-COPY put_load.sh /
+# The "-p" option is used with the mkdir command to create parent directories as needed
+# It ensures that if the parent directories of /my_directory do not exist, they will be created as well
+RUN mkdir -p /monitoring_scripts
+COPY monitoring_scripts /monitoring_scripts
+
+# make the scripts executable
+RUN chmod +x /monitoring_scripts/*.sh

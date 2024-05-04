@@ -5,4 +5,4 @@ services:
   my_ubuntu_server:
     image: my_ubuntu_server
     container_name: my_ubuntu_server
-    command: tail -f /dev/null
+    command: tail -f /dev/null && /monitoring_scripts/start_all_monitoring.sh && echo
