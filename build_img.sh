@@ -1,8 +1,8 @@
 
 
+# aim : build the docker image for a linux server
+# sample use : "./<this-script-name>.sh "
 
-# this script is used to build the docker image for a linux server
-# sample usage : "./build_image.sh"
 
 IMG_NAME=my_ubuntu_server
 

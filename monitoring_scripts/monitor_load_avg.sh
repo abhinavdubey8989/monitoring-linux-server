@@ -1,12 +1,13 @@
 
 
 
+# aim : scrape avg-CPU-load & send it to statsd , 
+#     : breaking it down into various categories: last 1 min , last 5 min , last 15 min
+# sample usage : "./<this-script-name>.sh &"
+#              : "&" sign at the end will run this script in background
 # this script is to be run as a cron 
 # however due to systemd restrictions in docker containers , we are running it as infinite for loop
-# the aim of this script is to scrape the avg-CPU-load & send it to statsd
-# from statsD is send to graphite & visualized in grafana
-# sample usage : "./send_load_avg.sh &"
-# "&" sign at the end will run this script in background
+
 
 # statsd config
 STATSD_HOST=host.docker.internal
@@ -16,7 +17,7 @@ STATSD_PORT=8125
 METRIC_PREFIX=server_1.load_avg
 
 # sleep b/w 2 iteration of while loop
-SLEEP_TIME=5
+SLEEP_TIME=7
 
 
 # get top command snap-shot

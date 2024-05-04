@@ -1,13 +1,9 @@
 
 
-# this script will stop the components in if START_OR_STOP_FLAG=0
 
-# this script will start the components , if START_OR_STOP_FLAG=1 , in attach/detach mode basis ATTACH_MODE_FLAG
-# if ATTACH_MODE_FLAG is null or "d" => detach mode
-# if ATTACH_MODE_FLAG is "a" => attach mode
-# rest any value of ATTACH_MODE_FLAG is invalid
-# sample usage : "./start_or_stop.sh 0" to stop container
-# sample usage : "./start_or_stop.sh 1" to start container 
+# aim : start/stop a linux container once the image is build using the build_img.sh script
+# sample use : "./start_or_stop.sh 0" to stop container
+# sample use : "./start_or_stop.sh 1" to start container 
 
 
 START_OR_STOP_FLAG=$1

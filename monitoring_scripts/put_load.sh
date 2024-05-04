@@ -1,8 +1,10 @@
 
 
-# This script helps to mimic increase in CPU load by using "dd" command
+# aim : mimic increase in CPU load by using "dd" command
+# sample use : "./<this-script-name>.sh 10" (will put load for 10 seconds)
 # we need to pass the number of seconds for which we need to put the load
-# sample use : "./add_load.sh 10" (will put load for 10 seconds)
+
+
 
 LOAD_TIME=$1
 

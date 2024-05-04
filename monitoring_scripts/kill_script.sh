@@ -1,5 +1,7 @@
 
 
+# aim : to kill a script using its PID
+# sample usage : "./<this-script-name>.sh <script name to kill>"
 
 SCRIPT_TO_KILL=$1
 

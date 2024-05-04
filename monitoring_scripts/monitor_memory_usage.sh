@@ -1,13 +1,13 @@
 
 
 
+# aim : scrape the detail of memory usage & send it to statsd , 
+#     : breaking it down into various categories: total , used , buff/cache
+# sample usage : "./<this-script-name>.sh &"
+#              : "&" sign at the end will run this script in background
 # this script is to be run as a cron 
 # however due to systemd restrictions in docker containers , we are running it as infinite for loop
-# the aim of this script is to scrape the detail of memory usage, 
-# breaking it down into various categories: total , used , buff/cache
-# from statsD is send to graphite & visualized in grafana
-# sample usage : "./monitor_memory_usage.sh &"
-# "&" sign at the end will run this script in background
+
 
 # statsd config
 STATSD_HOST=host.docker.internal
@@ -17,7 +17,7 @@ STATSD_PORT=8125
 METRIC_PREFIX=server_1.memory
 
 # sleep b/w 2 iteration of while loop
-SLEEP_TIME=5
+SLEEP_TIME=7
 
 
 # get top command snap-shot
@@ -26,10 +26,10 @@ SLEEP_TIME=5
 get_top_output(){
 
     # sample o/p format
-    top_output="MiB Mem :   7849.1 total,   4606.9 free,   1050.4 used,   2191.7 buff/cache"
+    # top_output="MiB Mem :   7849.1 total,   4606.9 free,   1050.4 used,   2191.7 buff/cache"
 
     # extract the relevant line from top command which begins with %CPU
-    # top_output=$(top -bn 1 | awk '/MiB Mem/')
+    top_output=$(top -bn 1 | awk '/MiB Mem/')
     echo "$top_output" 
 }
 

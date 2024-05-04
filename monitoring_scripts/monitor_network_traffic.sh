@@ -1,26 +1,27 @@
 
 
 
+# aim : scrape the detail of n/w activity & send it to statsd , 
+#     : breaking it down into various categories: network-in & network-out
+# sample usage : "./<this-script-name>.sh &"
+#              : "&" sign at the end will run this script in background
 # this script is to be run as a cron 
 # however due to systemd restrictions in docker containers , we are running it as infinite for loop
-# the aim of this script is to scrape the detail of memory usage, 
-# breaking it down into various categories: total , used , buff/cache
-# from statsD is send to graphite & visualized in grafana
-# sample usage : "./monitor_network_traffic.sh &"
-# "&" sign at the end will run this script in background
+
+
 
 # statsd config
 STATSD_HOST=host.docker.internal
 STATSD_PORT=8125
 
 # metric prefix
-METRIC_PREFIX=server_1.newtowk
+METRIC_PREFIX=server_1.network
 
 # n/w interface we want to monitor
 NETWORK_INTERFACE=eth0
 
 # sleep b/w 2 iteration of while loop
-SLEEP_TIME=5
+SLEEP_TIME=7
 
 
 
