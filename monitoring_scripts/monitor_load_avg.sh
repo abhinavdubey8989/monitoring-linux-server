@@ -24,7 +24,11 @@ SLEEP_TIME=7
 # -b flag is for batch
 # -n flag is to specify number of iterations to run top command (here we run only once)
 get_top_output(){
-    top_output=$(top -bn 1)
+
+    # sample output
+    # top_output="top - 17:38:34 up 4 min,  0 users,  load average: 0.01, 0.02, 0.03"
+
+    top_output=$(top -bn 1 | awk '/load average:/')
     echo "$top_output" 
 }
 
@@ -34,22 +38,21 @@ get_load_avg(){
     local minute=$1
     local top_output=$2
     local load_avg=0
+    local comma_separated_load_avg=$(echo "$top_output" | awk -F'load average:' '{print $2}')
+
 
     if [ $minute -eq 1 ]; then
         # load-avg last 1 min
-        load_avg=$(echo "$top_output" | awk '/load average:/ {print $10}' | sed 's/[,']//g)
-        echo "$load_avg"
-
+        load_avg=$(echo "$comma_separated_load_avg" | awk -F',' '{print $1}' | sed 's/[,']//g)
     elif [ $minute -eq 5 ]; then
         # load-avg last 5 min
-        load_avg=$(echo "$top_output" | awk '/load average:/ {print $11}' | sed 's/[,']//g)
-        echo "$load_avg"
-
+        load_avg=$(echo "$comma_separated_load_avg" | awk -F',' '{print $2}' | sed 's/[,']//g)
     else
         # load-avg last 15 min
-        load_avg=$(echo "$top_output" | awk '/load average:/ {print $12}' | sed 's/[,'\'']//g')
-        echo "$load_avg"
+        load_avg=$(echo "$comma_separated_load_avg" | awk -F',' '{print $3}' | tr -d "',")
     fi
+
+    echo "$load_avg"
 }
 
 
@@ -57,6 +60,9 @@ send_metrics_to_statsd(){
     local counter=$1
     local metric_suffix=$2
     local final_metric="$METRIC_PREFIX.$metric_suffix"
+
+    # print to console
+    # echo "$final_metric = $counter"
 
     # send metric command
     echo "$final_metric:$counter|c" | nc -w 1 -u $STATSD_HOST $STATSD_PORT
@@ -68,7 +74,6 @@ main(){
     while true; do
 
         local top_output=$(get_top_output)
-        local load_avg_str=$(echo "$top_output" | awk '/load average:/')
 
         # get load avg for last 1min , 5min , 15min
         local load_avg_1_min=$(get_load_avg 1 "'$top_output'")
