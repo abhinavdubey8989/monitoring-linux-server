@@ -9,15 +9,18 @@
 # however due to systemd restrictions in docker containers , we are running it as infinite for loop
 
 
+# Source the environment file
+source env_file.env
+
 # statsd config
-STATSD_HOST=host.docker.internal
-STATSD_PORT=8125
+STATSD_HOST=$STATSD_HOST
+STATSD_PORT=$STATSD_PORT
 
 # metric prefix
-METRIC_PREFIX=server_1.tcp
+METRIC_PREFIX="$HOST_NAME.tcp"
 
 # sleep b/w 2 iteration of while loop
-SLEEP_TIME=7
+SLEEP_TIME=$SLEEP_INTERVAL_IN_SEC
 
 
 # this method will extract n/w in & n/w out

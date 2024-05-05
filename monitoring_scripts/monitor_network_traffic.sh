@@ -10,18 +10,21 @@
 
 
 
+# Source the environment file
+source env_file.env
+
 # statsd config
-STATSD_HOST=host.docker.internal
-STATSD_PORT=8125
+STATSD_HOST=$STATSD_HOST
+STATSD_PORT=$STATSD_PORT
 
 # metric prefix
-METRIC_PREFIX=server_1.network
+METRIC_PREFIX="$HOST_NAME.network"
 
 # n/w interface we want to monitor
-NETWORK_INTERFACE=eth0
+NETWORK_INTERFACE=$NETWORK_INTERFACE
 
 # sleep b/w 2 iteration of while loop
-SLEEP_TIME=7
+SLEEP_TIME=$SLEEP_INTERVAL_IN_SEC
 
 
 
